@@ -303,7 +303,6 @@ class TaskBuilder(object):
             "dependencies": [self.task_id] + dependencies,
             "requires": "all-completed",
             "routes": routes + [
-                "tc-treeherder.v2.reference-browser.{}".format(self.commit)
             ],
             "scopes": scopes,
             "payload": payload,
