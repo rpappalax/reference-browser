@@ -16,6 +16,7 @@ import androidx.test.uiautomator.Until
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.Assert.assertTrue
 import org.mozilla.reference.browser.R
+import org.mozilla.reference.browser.helpers.TestAssetHelper
 import org.mozilla.reference.browser.helpers.TestAssetHelper.waitingTime
 
 class BrowserRobot {
@@ -26,7 +27,8 @@ class BrowserRobot {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
         val testContent = mDevice.findObject((UiSelector().textContains(expectedText)))
 
-        testContent.waitForExists(waitingTime)
+        mDevice.wait(Until.findObject(By.res(expectedText)), TestAssetHelper.waitingTimeShort)
+//        testContent.waitForExists(waitingTime)
         assertTrue(testContent.exists())
     }
 
@@ -38,6 +40,16 @@ class BrowserRobot {
         onView(withId(R.id.mozac_browser_toolbar_url_view))
                 .check(matches(withText(containsString(redirectUrl))))
     }
+
+    fun verifyGithubUrl() {
+        val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val redirectUrl = "https://github.com/login"
+
+        mDevice.wait(Until.findObject(By.res("mozac_browser_toolbar_url_view")), waitingTime)
+        onView(withId(R.id.mozac_browser_toolbar_url_view))
+                .check(matches(withText(containsString(redirectUrl))))
+    }
+
     fun verifyAboutBrowser() {
         // Testing About Reference Browser crashes in Java String
         // https://github.com/mozilla-mobile/reference-browser/issues/680
