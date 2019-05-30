@@ -32,10 +32,7 @@ class BrowserRobot {
 
     fun verifyFXAUrl() {
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        // if WIFI off
-        val redirectUrl = "https://github.com/login"
-        // if WIFI on
-        // val redirectUrl = "https://accounts.firefox.com"
+        val redirectUrl = "https://accounts.firefox.com"
 
         mDevice.wait(Until.findObject(By.res("mozac_browser_toolbar_url_view")), waitingTime)
         onView(withId(R.id.mozac_browser_toolbar_url_view))
